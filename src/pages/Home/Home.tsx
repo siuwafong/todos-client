@@ -31,6 +31,21 @@ export const Home = () => {
         fetchTodos();
     }, [])
 
+    const handleClear = async () => {
+        try {
+            await fetch(apiEndpoints.todoItems, {
+                method: 'DELETE',
+            });
+            setTodos([]);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message); 
+            } else {
+                console.error('Unknown error', error);
+            }
+        }
+    }
+
     return (
         <Container>
             <div className="flex items-center mb-4">
@@ -43,12 +58,12 @@ export const Home = () => {
                 <div className="text-muted-foreground">No todos yet</div>
             ) : (
                 todos.map((todo: Todo) => (
-                    <TodoCard key={todo.id} todo={todo} />
+                    <TodoCard key={todo.id} todo={todo} fetchTodos={fetchTodos} />
                 ))
             )}
-                <Button className='cursor-pointer bg-red-600' size='lg' >
-                    <CircleX className="mr-0.5 h-4 w-4" /> Clear
-                </Button>
+            <Button className='cursor-pointer bg-red-600' size='lg' onClick={handleClear}>
+                <CircleX className="mr-0.5 h-4 w-4" /> Clear
+            </Button>
         </Container>
     )
 }
