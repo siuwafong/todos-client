@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input"
 import { Field, FieldError, FieldGroup } from "@/components/ui/field"
 import { apiEndpoints } from "@/api"
 
-export const TodoPopover = () => {
+export const TodoPopover = ({ fetchTodos }: { fetchTodos: () => void}) => {
 
     const [todo, setTodo] = useState<string>('');
     const [error, setError] = useState<string | false>(false);
@@ -40,6 +40,8 @@ export const TodoPopover = () => {
                     "Content-Type": "application/json",
                 },
             })
+            setTodo('')
+            fetchTodos();
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error(error.message); 
