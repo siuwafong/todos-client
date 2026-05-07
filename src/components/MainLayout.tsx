@@ -4,9 +4,9 @@ import { Outlet } from "react-router"
 
 export const MainLayout = () => {
     return (
-        <div className="min-h-[100vh]">
+        <div className="min-h-screen">
             <Header />
-                <main>
+                <main className="h-full">
                     <Outlet />
                 </main>
             <Footer />

@@ -28,10 +28,10 @@ export function Header({
                     className="flex items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                 >
                     <div className="flex h-9 w-9 items-center justify-center rounded-md bg-white text-blue-600 font-bold">
-                        L
+                        TD
                     </div>
                     <span className="text-sm font-semibold text-white">
-            Logo
+            Todos
           </span>
                 </NavLink>
 
