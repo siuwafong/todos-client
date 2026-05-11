@@ -61,7 +61,7 @@ export const Home = () => {
         setTodos(sorted);
     }
 
-    const updateFilter = (filter: "completed" | "incomplete") => {
+    const updateFilter = (filter: "all" | "completed" | "incomplete") => {
         setPage(1);
         setViewableTodos(filter);
     }
