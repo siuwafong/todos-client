@@ -3,11 +3,9 @@ import { type Todo } from "@/api";
 
 export const FeatureContext = createContext({ 
     todos: [] as Todo[], 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setTodos: (todos: Todo[]) => {}, 
+    setTodos: (todos: Todo[]) => todos, 
     isLoading: true, 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setIsLoading: (loading: boolean) => {}, 
+    setIsLoading: (loading: boolean) => loading, 
     fetchTodos: async () => {}, 
-    handleDelete: async (todo: Todo) => {} 
+    handleDelete: async (todo: Todo) => todo 
 });
