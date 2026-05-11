@@ -33,7 +33,7 @@ export const WarningModal = ({ onConfirm, onCancel, title, description, onClick 
                     <Button onClick={onCancel ? () => onCancel() : () => null} variant="outline">Cancel</Button>
                 </DialogClose>      
                 <DialogClose asChild>                 
-                    <Button variant="destructive" onClick={onConfirm}>Save changes</Button>
+                    <Button variant="destructive" onClick={onConfirm}>Delete all todos</Button>
                 </DialogClose>
                 </DialogFooter>
                 </DialogContent>
