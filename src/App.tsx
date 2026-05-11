@@ -5,6 +5,7 @@ import {Home} from "./pages/Home/Home.tsx"
 import {Details} from "./pages/Details/Details.tsx";
 import {NotFound} from "./pages/NotFound/NotFound.tsx";
 import {FeatureLayout} from "./components/FeatureLayout.tsx";
+import { Toaster } from "@/components/ui/sonner";
 
 const AppContent = () => {
     return (
@@ -25,6 +26,7 @@ function App() {
     return (
       <BrowserRouter>
             <AppContent />
+            <Toaster />
       </BrowserRouter>
     )
 }

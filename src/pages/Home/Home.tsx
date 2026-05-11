@@ -8,13 +8,13 @@ import { CircleX, ChevronLeft, ChevronRight } from "lucide-react"
 import { useFeatures } from "@/hooks/useFeatures"
 import { toast } from "sonner"
 
-const PAGE_SIZE = 5;
-
-
 export const Home = () => {
 
+    const PAGE_SIZE = 5;
+
+
     const { todos, setTodos, isLoading, fetchTodos } = useFeatures();
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState<number>(1);
 
 
     useEffect(() => {
@@ -44,7 +44,7 @@ export const Home = () => {
         <Container>
             <div className="flex items-center mb-4">
                 <h1 className='font-medium text-2xl mr-4'>Todos</h1>
-                <TodoPopover />
+                <TodoPopover setPage={setPage} pageSize={PAGE_SIZE} />
             </div>
             {isLoading ? (
                 <div className="text-muted-foreground">Loading...</div>

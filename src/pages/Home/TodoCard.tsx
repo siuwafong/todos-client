@@ -5,6 +5,8 @@ import { useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useFeatures } from "@/hooks/useFeatures"
 import { toast } from "sonner"
+import { Pencil } from "lucide-react"
+import { NavLink } from "react-router";
 
 export const TodoCard = ({ todo, fetchTodos }: { todo: Todo, fetchTodos: () => void }) => {
 
@@ -50,8 +52,13 @@ export const TodoCard = ({ todo, fetchTodos }: { todo: Todo, fetchTodos: () => v
                 />
                 <div>{todo.name}</div>
             </div>
-            <div onClick={() => handleDelete(todo)}>
-                <CircleX className="h-5 w-5 cursor-pointer" />
+            <div className="flex items-center gap-2">
+                <NavLink to={`/todo/${todo.id}`}>
+                    <Pencil className="h-5 w-5 cursor-pointer" />
+                </NavLink>
+                <div onClick={() => handleDelete(todo)}>
+                    <CircleX className="h-5 w-5 cursor-pointer" />
+                </div>
             </div>
         </div>
     )
