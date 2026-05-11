@@ -4,15 +4,17 @@ import {About} from "./pages/About/About.tsx";
 import {Home} from "./pages/Home/Home.tsx"
 import {Details} from "./pages/Details/Details.tsx";
 import {NotFound} from "./pages/NotFound/NotFound.tsx";
-
+import {FeatureLayout} from "./components/FeatureLayout.tsx";
 
 const AppContent = () => {
     return (
         <Routes>
             <Route element={<MainLayout />}>
-                <Route path="/" element={<Home />} />
+                <Route element={<FeatureLayout />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/todo/:id" element={<Details />} />
+                </Route>
                 <Route path="/about" element={<About />} />
-                <Route path="/todo/:id" element={<Details />} />
                 <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>

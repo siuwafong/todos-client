@@ -14,11 +14,13 @@ import { Field, FieldError, FieldGroup } from "@/components/ui/field"
 import { apiEndpoints } from "@/api"
 import { toast } from "sonner"
 import { format } from 'date-fns';
+import { useFeatures } from "@/hooks/useFeatures"
 
+export const TodoPopover = () => {
 
-export const TodoPopover = ({ fetchTodos }: { fetchTodos: () => void}) => {
+    const { fetchTodos, handleDelete } = useFeatures();
 
-    const [todo, setTodo] = useState<string>('');
+    const [todoName, setTodoName] = useState<string>('');
     const [error, setError] = useState<string | false>(false);
 
     const handleTodoChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,22 +30,23 @@ export const TodoPopover = ({ fetchTodos }: { fetchTodos: () => void}) => {
         } else {
             setError(false);
         }
-        setTodo(newTodo);
+        setTodoName(newTodo);
     }
 
     const handleClick = async () => {
         try {
-            await fetch(apiEndpoints.todoItems, {
+            const res = await fetch(apiEndpoints.todoItems, {
                 method: 'POST',
                 body: JSON.stringify({
-                    Name: todo,
+                    Name: todoName,
                     IsComplete: false
                 }),
                 headers: {
                     "Content-Type": "application/json",
                 },
             })
-            setTodo('')
+            const newTodo = await res.json();
+            setTodoName('')
             fetchTodos();
 
             const formatted = format(new Date(), 'MMMM d, h:mma');
@@ -52,7 +55,7 @@ export const TodoPopover = ({ fetchTodos }: { fetchTodos: () => void}) => {
                 description: `Created at ${formatted}`,
                 action: {
                     label: "Undo",
-                    onClick: () => console.log("Undo"),
+                    onClick: () => handleDelete(newTodo),
                 },
             })
         } catch (error: unknown) {
@@ -84,7 +87,7 @@ export const TodoPopover = ({ fetchTodos }: { fetchTodos: () => void}) => {
                             placeholder="Todo..."
                             className="mt-2"
                             aria-invalid={!!error}
-                            value={todo}
+                            value={todoName}
                             onChange={handleTodoChange}
                         />
                         {error && (
@@ -92,7 +95,11 @@ export const TodoPopover = ({ fetchTodos }: { fetchTodos: () => void}) => {
                                 {error}
                             </FieldError>
                         )}
-                        <Button className='bg-blue-600 cursor-pointer' onClick={handleClick}>
+                        <Button 
+                            className='bg-blue-600 cursor-pointer' 
+                            onClick={handleClick}
+                            disabled={!!error || todoName.length === 0}
+                        >
                             Add
                         </Button>
                     </Field>

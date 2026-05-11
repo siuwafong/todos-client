@@ -3,25 +3,14 @@ import { CircleX } from "lucide-react"
 import { getEndpoint } from "@/api"
 import { useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
+import { useFeatures } from "@/hooks/useFeatures"
+import { toast } from "sonner"
 
 export const TodoCard = ({ todo, fetchTodos }: { todo: Todo, fetchTodos: () => void }) => {
 
     const [isComplete, setIsComplete] = useState<boolean>(todo.isComplete);
 
-    const handleDelete = async () => {
-        try {
-            await fetch(getEndpoint("todoItems", todo.id), {
-                method: 'DELETE'
-            });
-            fetchTodos();
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message); 
-            } else {
-                console.error('Unknown error', error);
-            }
-        }
-    }
+    const { handleDelete } = useFeatures();
 
     const toggleComplete = async () => {
         try {
@@ -35,6 +24,9 @@ export const TodoCard = ({ todo, fetchTodos }: { todo: Todo, fetchTodos: () => v
                     "Content-Type": "application/json",
                 },
             });
+            toast("Todo updated", {
+                description: `Marked as ${!todo.isComplete ? "complete" : "incomplete"}`,
+            })
             fetchTodos();
         }
         catch (error) {
@@ -58,7 +50,7 @@ export const TodoCard = ({ todo, fetchTodos }: { todo: Todo, fetchTodos: () => v
                 />
                 <div>{todo.name}</div>
             </div>
-            <div onClick={handleDelete}>
+            <div onClick={() => handleDelete(todo)}>
                 <CircleX className="h-5 w-5 cursor-pointer" />
             </div>
         </div>

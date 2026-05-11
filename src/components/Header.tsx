@@ -35,7 +35,6 @@ export function Header({
           </span>
                 </NavLink>
 
-                {/* Middle: nav */}
                 <nav className="flex items-center gap-2">
                     <NavLink to="/" className={navLinkClass} end>
                         Home
@@ -45,7 +44,6 @@ export function Header({
                     </NavLink>
                 </nav>
 
-                {/* Right: theme toggle */}
                 <Button
                     type="button"
                     variant="ghost"
