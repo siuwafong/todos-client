@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from "react"
+import { useState, type ChangeEvent, type Dispatch, type SetStateAction } from "react"
 import {
     Popover,
     PopoverContent,
@@ -16,9 +16,9 @@ import { toast } from "sonner"
 import { format } from 'date-fns';
 import { useFeatures } from "@/hooks/useFeatures"
 
-export const TodoPopover = () => {
+export const TodoPopover = ({ setPage, pageSize }: { setPage: Dispatch<SetStateAction<number>>, pageSize: number }) => {
 
-    const { fetchTodos, handleDelete } = useFeatures();
+    const { fetchTodos, handleDelete, todos } = useFeatures();
 
     const [todoName, setTodoName] = useState<string>('');
     const [error, setError] = useState<string | false>(false);
@@ -58,6 +58,7 @@ export const TodoPopover = () => {
                     onClick: () => handleDelete(newTodo),
                 },
             })
+            setPage(Math.floor(todos.length / pageSize) + 1);
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error(error.message); 
