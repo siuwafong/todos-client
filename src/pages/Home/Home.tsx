@@ -5,7 +5,7 @@ import { WarningModal } from "@/components/WarningModal"
 import { TodoPopover } from "@/pages/About/components/TodoPopover"
 import { TodoCard } from "@/pages/Home/TodoCard"
 import { Button } from "@/components/ui/button"
-import { CircleX, ChevronLeft, ChevronRight, Check } from "lucide-react"
+import { ChevronLeft, ChevronRight, Check } from "lucide-react"
 import { useFeatures } from "@/hooks/useFeatures"
 import { toast } from "sonner"
 import {
@@ -17,7 +17,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { set } from "date-fns";
 
 type Order = "asc" | "desc";
 
@@ -29,16 +28,10 @@ export const Home = () => {
     const [page, setPage] = useState<number>(1);
     const [order, setOrder] = useState<Order>("asc");
     const [viewableTodos, setViewableTodos] = useState<"all" | "completed" | "incomplete">("all");
-    const [showClearModal, setShowClearModal] = useState<boolean>(false);
 
     useEffect(() => {
         fetchTodos();
     }, [fetchTodos]);
-
-    const handleClear = async () => {
-        console.log("showing modal")
-        setShowClearModal(true);
-    }
 
     const confirmClear = async () => {
         try {
@@ -58,7 +51,6 @@ export const Home = () => {
 
     const handleConfirm = () => {
         confirmClear();
-        setShowClearModal(false);
     }
 
     const updateOrder = (newOrder: Order) => {
@@ -162,15 +154,11 @@ export const Home = () => {
                     )}
                 </>
             )}
-            {/* <Button className='cursor-pointer bg-red-600 mt-4' size='lg' onClick={handleClear}>
-                <CircleX className="mr-0.5 h-4 w-4" /> Clear
-            </Button> */}
             <WarningModal
-                onCancel={() => setShowClearModal(false)}
                 onConfirm={() => handleConfirm()}
                 title="Clear all todos?"
                 description="This action cannot be undone."
-                onClick={() => handleClear()}
+                onClick={() => null}
             />
         </Container>
     )
