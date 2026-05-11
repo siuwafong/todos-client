@@ -12,6 +12,9 @@ import { CirclePlus } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Field, FieldError, FieldGroup } from "@/components/ui/field"
 import { apiEndpoints } from "@/api"
+import { toast } from "sonner"
+import { format } from 'date-fns';
+
 
 export const TodoPopover = ({ fetchTodos }: { fetchTodos: () => void}) => {
 
@@ -42,6 +45,16 @@ export const TodoPopover = ({ fetchTodos }: { fetchTodos: () => void}) => {
             })
             setTodo('')
             fetchTodos();
+
+            const formatted = format(new Date(), 'MMMM d, h:mma');
+
+            toast("Todo added", {
+                description: `Created at ${formatted}`,
+                action: {
+                    label: "Undo",
+                    onClick: () => console.log("Undo"),
+                },
+            })
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error(error.message); 
