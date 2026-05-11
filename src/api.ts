@@ -4,6 +4,7 @@ export interface Todo {
     id: string;
     name: string;
     isComplete: boolean;
+    createdDate: string
 }
 
 export interface FullTodo extends Todo {
